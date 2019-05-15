@@ -19,6 +19,11 @@ Bonus:
 * Fill in shapes/multiple platforms
 * Change animal type
 
+## Architecture and Technologies
+
+* Javascript
+* Canvas
+
 ## Timeline
 
 * Day 0: Wireframes, planning, basic canvas rendering.
