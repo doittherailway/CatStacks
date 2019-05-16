@@ -1,17 +1,22 @@
 // gravity
 // const ag = 9.81; // kg/m^3 /// -> convert this to pixels to make cat fall slower
-const ag = 3;
+const ag = 9.81;
 
 const frameRate = 1/40; //seconds 
 const frameDelay = frameRate * 1000; // ms
+
+const img = new Image();
+// img.onload = someFunctionToCallWhenTheImageHasLoaded;
+img.src = '../images/cat.png';
 
 class MovingObject {
     constructor() {
         this.pos = {x: 350, y: 30};
         this.vel = {x: 0, y: 10};
-        this.width = 50;
-        this.height =  50;
-        this.color = '#46b1c9';
+        this.width = 80;
+        this.height =  80;
+        // this.color = '#46b1c9';
+        this.color = '#afceff';
         this.area = this.width * this.height / 1000;
         this.mass = 1;
     }
@@ -19,13 +24,13 @@ class MovingObject {
     draw(ctx) {
 
         ctx.fillStyle = this.color;
-        // console.log(this.pos.y);
-        // console.log(this.vel.y);
-        ctx.fillRect(this.pos.x, this.pos.y, this.width, this.height);
+        
+        ctx.fillRect(this.pos.x, this.pos.y, this.width, this.height+1);
+        ctx.drawImage(img, this.pos.x, this.pos.y, this.width, this.height);
     }
 
     handleCollision(id) {
-        if (this.pos.y >= 800 - (this.height/2)) {
+        if (this.pos.y >= 800 - this.height) {
             this.vel.y = 0;
             cancelAnimationFrame(id);
         }
