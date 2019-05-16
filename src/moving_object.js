@@ -25,14 +25,14 @@ class MovingObject {
     }
 
     handleCollision(id) {
-        if (this.pos.y >= 750 - (this.height/2)) {
+        if (this.pos.y >= 800 - (this.height/2)) {
             this.vel.y = 0;
             cancelAnimationFrame(id);
         }
     }
 
     move(ctx, id) {
-        ctx.clearRect(this.pos.x, this.pos.y, this.width, this.height); // clear previous 
+        // ctx.clearRect(this.pos.x, this.pos.y, this.width, this.height); // clear previous 
 
         // Calculate drag force
         let Fd = -0.5 * this.area * this.vel.y * this.vel.y;
@@ -52,7 +52,7 @@ class MovingObject {
         
         // handle collisions
         this.handleCollision(id);
-        
+        ctx.clearRect(this.pos.x, this.pos.y, this.width, this.height);
         this.draw(ctx); // render at new position
     }
 
