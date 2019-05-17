@@ -14,20 +14,20 @@ document.addEventListener("DOMContentLoaded", () => {
     // cat.draw(c);
     // loopTimer = setInterval(() => {
     //     cat.loop(c);}, 300);
-    let id;
-    const dropCat = () => {
-        id = requestAnimationFrame(dropCat);
-        c.fillStyle = "#afceff";
-        c.fillRect(0, 0, 800, 800);
-        cat.move(c, id);
+    // let id;
+    // const dropCat = () => {
+    //     id = requestAnimationFrame(dropCat);
+    //     c.fillStyle = "#afceff";
+    //     c.fillRect(0, 0, 800, 800);
+    //     cat.move(c, id);
         // if (cat.vel.y === 0){
         //     console.log("Done");
-        // }
-    };
+    //     // }
+    // };
   
-    dropCat();
+    // dropCat();
 
-    // const game = new Game();
-    // game.startRound(c);
+    const game = new Game(c);
+    game.startGame();
     
 });

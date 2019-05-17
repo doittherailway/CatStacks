@@ -10,7 +10,7 @@ const img = new Image();
 img.src = '../images/cat.png';
 
 class MovingObject {
-    constructor() {
+    constructor(prevHeight) {
         this.pos = {x: 350, y: 30};
         this.vel = {x: 0, y: 10};
         this.width = 80;
@@ -19,18 +19,20 @@ class MovingObject {
         this.color = '#afceff';
         this.area = this.width * this.height / 1000;
         this.mass = 1;
+
+        this.prevHeight = prevHeight;
     }
 
     draw(ctx) {
 
         ctx.fillStyle = this.color;
         
-        ctx.fillRect(this.pos.x, this.pos.y, this.width, this.height+1);
+        ctx.fillRect(this.pos.x, this.pos.y, this.width, this.height);
         ctx.drawImage(img, this.pos.x, this.pos.y, this.width, this.height);
     }
 
     handleCollision(id) {
-        if (this.pos.y >= 800 - this.height) {
+        if (this.pos.y >= 800 - this.height || this.pos.y >= this.prevHeight) {
             this.vel.y = 0;
             cancelAnimationFrame(id);
         }
