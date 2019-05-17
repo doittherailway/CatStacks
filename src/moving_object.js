@@ -24,10 +24,8 @@ class MovingObject {
     }
 
     draw(ctx) {
-
-        ctx.fillStyle = this.color;
         
-        ctx.fillRect(this.pos.x, this.pos.y, this.width, this.height);
+        ctx.fillStyle = this.color;
         ctx.drawImage(img, this.pos.x, this.pos.y, this.width, this.height);
     }
 
@@ -55,14 +53,16 @@ class MovingObject {
         // Integrate to get position
         this.pos.y += this.vel.y * frameRate * 100; // why is this 100?
         console.log("pos.y", this.pos.y);
-        console.log("framerate", frameRate);
-        console.log("ay", ay);
+
         
         
         // debugger;
         // handle collisions
         this.handleCollision(id);
-        ctx.clearRect(this.pos.x, this.pos.y, this.width, this.height);
+        // console.log("clearReact", "x pos", this.pos.x, "y pos", this.pos.y, "width", this.width, "height", this.height);
+
+        // ctx.clearRect(this.pos.x, this.pos.y, this.width, this.height);
+        ctx.clearRect(0, 0,800, 800);
         this.draw(ctx); // render at new position
     }
 

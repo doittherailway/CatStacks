@@ -6,8 +6,8 @@ const Game = require('./game');
 document.addEventListener("DOMContentLoaded", () => {
     const canvas = document.getElementById('game-canvas');
     const c = canvas.getContext('2d');
-    c.fillStyle = "#afceff";
-    c.fillRect(0, 0, 800, 800);
+    // c.fillStyle = "#afceff";
+    // c.fillRect(0, 0, 800, 800);
 
     const cat = new MovingObject();
 
@@ -20,14 +20,14 @@ document.addEventListener("DOMContentLoaded", () => {
     //     c.fillStyle = "#afceff";
     //     c.fillRect(0, 0, 800, 800);
     //     cat.move(c, id);
-        // if (cat.vel.y === 0){
-        //     console.log("Done");
-    //     // }
+    //     if (cat.vel.y === 0){
+    //         console.log("Done");
+    //     }
     // };
   
     // dropCat();
 
     const game = new Game(c);
-    game.startGame();
+    game.startGame(canvas);
     
 });

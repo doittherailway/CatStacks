@@ -12,14 +12,16 @@ class Game {
         this.cats.push(new MovingObject());
     }
 
-    startGame(){
+    startGame(canvas){
         // for (let i = 1; i < 3; i++) {
 
         // }
-        this.startRound();
+        window.addEventListener('keydown', () => {
+            this.startRound(canvas);
+        });
     }
 
-    startRound() {
+    startRound(canvas) {
         // let id;
         // const gameLoop = () => {
         //     this.addCat();
@@ -28,9 +30,11 @@ class Game {
         //     c.fillRect(0, 0, 800, 800);
 
         let id = requestAnimationFrame(this.startRound);
+        //this.ctx.fillStyle = "#afceff";
+        //    this.ctx.fillRect(0, 0, 800, 800);
 
+                this.cats.slice(this.cats.length-1)[0].move(this.ctx, id);
 
-            this.cats.slice(this.cats.length-1)[0].move(this.ctx, id);
             this.cats.slice(0, this.cats.length-1).forEach( cat => {
                 cat.draw(this.ctx);
             });
