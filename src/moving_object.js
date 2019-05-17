@@ -42,17 +42,17 @@ class MovingObject {
         let Fd = -0.5 * this.area * this.vel.y * this.vel.y;
         // Force in the y direction (ignoring x for now)
         let Fy = Fd * this.vel.y / Math.abs(this.vel.y);
-        console.log("Fy", Fy);
+        // console.log("Fy", Fy);
         
         // Calculate y direction acceleration (F = ma), assuming mass of 1
         let ay = ag + (Fy / this.mass);
         // Integrate to get y direction velocity
         this.vel.y += ay * frameRate;
-        console.log("vel.y", this.vel.y);
+        // console.log("vel.y", this.vel.y);
     
         // Integrate to get position
         this.pos.y += this.vel.y * frameRate * 100; // why is this 100?
-        console.log("pos.y", this.pos.y);
+        // console.log("pos.y", this.pos.y);
 
         
         

@@ -4,71 +4,67 @@ const MovingObject = require('./moving_object');
 class Game {
     constructor(ctx) {
         this.ctx = ctx;
-        this.startRound = this.startRound.bind(this);
         this.cats = [new MovingObject(800)];
+        this.roundinProgress = false;
+        this.gameOver = false;
+
+        this.startRound = this.startRound.bind(this);
+        this.stepRound = this.stepRound.bind(this);
+        this.addCat = this.addCat.bind(this);
     }
 
-    addCat() {
-        this.cats.push(new MovingObject());
+    addCat(prevHeight) {
+        this.cats.push(new MovingObject(prevHeight));
     }
 
-    startGame(canvas){
-        // for (let i = 1; i < 3; i++) {
+    startGame(){
+        this.startRound();
+    }
 
-        // }
-        window.addEventListener('keydown', () => {
-            this.startRound(canvas);
+    startRound() {
+        window.addEventListener('keydown', (e) => { 
+              // look at keyCode property of event object: var key = String.fromCharCode(event.which);
+            if (e.preventDefaulted) {
+                return;  // do nothing if event is already being processed
+            }
+            if (!this.roundinProgress && !this.gameOver) {
+            this.stepRound();
+            }
+            e.preventDefault();
+            
         });
     }
 
-    startRound(canvas) {
+    stepRound() {
         // let id;
         // const gameLoop = () => {
         //     this.addCat();
         //     id = requestAnimationFrame(gameLoop);
         //     c.fillStyle = "#afceff";
         //     c.fillRect(0, 0, 800, 800);
+        this.roundinProgress = true;
+        let id = requestAnimationFrame(this.stepRound);
 
-        let id = requestAnimationFrame(this.startRound);
-        //this.ctx.fillStyle = "#afceff";
-        //    this.ctx.fillRect(0, 0, 800, 800);
+        let currentCat = this.cats.slice(this.cats.length - 1)[0];  // get last cat
 
-                this.cats.slice(this.cats.length-1)[0].move(this.ctx, id);
+        currentCat.move(this.ctx, id);  // move last cat
 
-            this.cats.slice(0, this.cats.length-1).forEach( cat => {
-                cat.draw(this.ctx);
-            });
-            // console.log(this.cats);
-            if (this.cats.slice(this.cats.length-1)[0].vel.y == 0) {
-                const prevHeight = (this.cats.slice(this.cats.length-1)[0].pos.y - 80);
-                console.log("prevheight", prevHeight);
-                this.cats.push(new MovingObject(prevHeight));
-                // if (prevHeight > -80) {
-                if (this.cats.length < 10){
-                    this.startRound();
-                }
+        this.cats.slice(0, this.cats.length-1).forEach( cat => {   // redraw previous cats
+            cat.draw(this.ctx);
+        });
+
+        if (currentCat.vel.y == 0) {                          // if the current Cat stops moving
+            const prevHeight = (currentCat.pos.y - 80);       //find out it's end y position for collisions
+            console.log("prevheight", prevHeight);
+            this.addCat(prevHeight);                           // create a new cat on end of cats array
+            this.roundinProgress = false;
+
+            if (this.cats.length >= 10){
+                this.gameOver = true;
             }
-            // let catNo = this.cats.length-1;      doesnt work
-            // this.cats[catNo].move(c, id);
-            // if (this.cats[catNo].vel.y === 0) {
-            //     console.log("Done");
-            // }
-        // };
-        // gameLoop();
-        // when does this loop end, and how can I tell?
-    }
-
-    checkCollisions(id) {
-        if (this.pos.y >= 800 - this.cats[0].height) {
-            this.vel.y = 0;
-            cancelAnimationFrame(id);
         }
-
     }
 
-    step(c, id) {
-        this.cats[0].move(c, id);
-    }
 
     // drop first cat
     // hits ground
