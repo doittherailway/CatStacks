@@ -13,8 +13,9 @@ class Game {
         this.addCat = this.addCat.bind(this);
     }
 
-    addCat(prevHeight) {
-        this.cats.push(new MovingObject(prevHeight));
+    addCat(prevCat) {
+        this.cats.push(new MovingObject(prevCat));
+        return this.cats.slice(this.cats.length - 1)[0];
     }
 
     startGame(){
@@ -22,13 +23,19 @@ class Game {
     }
 
     startRound() {
+        let currentCat = this.cats.slice(this.cats.length - 1)[0];
+
+        if (!this.gameOver) {
+            currentCat.topMove(this.ctx);
+        }
+
         window.addEventListener('keydown', (e) => { 
               // look at keyCode property of event object: var key = String.fromCharCode(event.which);
             if (e.preventDefaulted) {
                 return;  // do nothing if event is already being processed
             }
             if (!this.roundinProgress && !this.gameOver) {
-            this.stepRound();
+                this.stepRound();
             }
             e.preventDefault();
             
@@ -45,7 +52,8 @@ class Game {
         this.roundinProgress = true;
         let id = requestAnimationFrame(this.stepRound);
 
-        let currentCat = this.cats.slice(this.cats.length - 1)[0];  // get last cat
+        let currentCat = this.cats.slice(this.cats.length - 1)[0];  // get latest cat
+        currentCat.movingX = false;
 
         currentCat.move(this.ctx, id);  // move last cat
 
@@ -53,13 +61,13 @@ class Game {
             cat.draw(this.ctx);
         });
 
-        if (currentCat.vel.y == 0) {                          // if the current Cat stops moving
-            const prevHeight = (currentCat.pos.y - 80);       //find out it's end y position for collisions
-            console.log("prevheight", prevHeight);
-            this.addCat(prevHeight);                           // create a new cat on end of cats array
+        if (currentCat.vel.y === 0) {                          // if the current Cat stops moving
+            // const prevHeight = (currentCat.pos.y - 80);       //find out it's end y position for collisions
+            // console.log("prevheight", prevHeight);
+            // this.addCat(prevHeight).topMove(this.ctx);                           // create a new cat on end of cats array
+            this.addCat(currentCat).topMove(this.ctx);
             this.roundinProgress = false;
-
-            if (this.cats.length >= 10){
+            if (this.cats.length >= 9){
                 this.gameOver = true;
             }
         }
