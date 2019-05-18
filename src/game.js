@@ -4,9 +4,10 @@ const MovingObject = require('./moving_object');
 class Game {
     constructor(ctx) {
         this.ctx = ctx;
-        this.cats = [new MovingObject(800)];
+        this.cats = [];  //   this.cats = [new MovingObject(800)];
         this.roundinProgress = false;
         this.gameOver = false;
+        this.translateOffset = 0;
 
         this.startRound = this.startRound.bind(this);
         this.stepRound = this.stepRound.bind(this);
@@ -23,10 +24,29 @@ class Game {
     }
 
     startRound() {
-        let currentCat = this.cats.slice(this.cats.length - 1)[0];
+        console.log("High Score:", this.cats.length);
+        // this.ctx.clearRect(0, 0, 800, 800);
+        if (this.cats.length >= 4) {
+            // this.translateOffset += 80;
+            // this.ctx.translate(0, this.translateOffset);
+        }
+        // this.cats.forEach(cat => {   // redraw previous cats
+        //     cat.draw(this.ctx);
+        // });
+        
+        let lastCat = this.cats.slice(this.cats.length - 1)[0]; // need to now account for if lastCat.onStack
+
+        let newCat = this.addCat(lastCat);
+        
+        // newCat.pos.y -= 80;
+        
+        // if (this.cats.length >= 4) {
+        //     this.translateOffset += 50;
+        //     this.ctx.translate(0, translateOffset);
+        // }
 
         if (!this.gameOver) {
-            currentCat.topMove(this.ctx);
+            newCat.topMove(this.ctx, this.translateOffset);
         }
 
         window.addEventListener('keydown', (e) => { 
@@ -43,19 +63,12 @@ class Game {
     }
 
     stepRound() {
-        // let id;
-        // const gameLoop = () => {
-        //     this.addCat();
-        //     id = requestAnimationFrame(gameLoop);
-        //     c.fillStyle = "#afceff";
-        //     c.fillRect(0, 0, 800, 800);
         this.roundinProgress = true;
         let id = requestAnimationFrame(this.stepRound);
 
         let currentCat = this.cats.slice(this.cats.length - 1)[0];  // get latest cat
-        currentCat.movingX = false;
-
-        currentCat.move(this.ctx, id);  // move last cat
+        currentCat.movingX = false;  
+        currentCat.move(this.ctx, id);  // move latest cat
 
         this.cats.slice(0, this.cats.length-1).forEach( cat => {   // redraw previous cats
             cat.draw(this.ctx);
@@ -65,11 +78,18 @@ class Game {
             // const prevHeight = (currentCat.pos.y - 80);       //find out it's end y position for collisions
             // console.log("prevheight", prevHeight);
             // this.addCat(prevHeight).topMove(this.ctx);                           // create a new cat on end of cats array
-            this.addCat(currentCat).topMove(this.ctx);
+
+            // console.log(newCat.pos.y);
+            if (!currentCat.onStack) {
+                this.cats.pop();
+            }
             this.roundinProgress = false;
+            
             if (this.cats.length >= 9){
                 this.gameOver = true;
             }
+            // newCat.topMove(this.ctx, this.translateOffset);
+            this.startRound();
         }
     }
 
