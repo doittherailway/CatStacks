@@ -59,8 +59,12 @@ class Game {
             this.boardCats = this.cats;
             
             if (this.cats.length >= 4 && this.prevCatDidTopple === false) {
-                // this.boardCats = this.cats.slice(this.cats.length-4, this.cats.length-1); /////
-                console.log(this.boardCats);
+                this.boardCats = this.cats.slice(this.cats.length-4, this.cats.length); /////
+                // console.log(this.boardCats);
+                this.pushDownCats();
+
+
+
                 // this.ctx.save();
                 // this.translateOffset += 80;
                 // console.log(this.translateOffset);
@@ -130,12 +134,18 @@ class Game {
             }
             this.roundinProgress = false;
             
-            if (this.cats.length >= 9 || this.lives === 0){
+            if (this.lives === 0) {
                 this.gameOver = true;
             }
             // newCat.topMove(this.ctx, this.translateOffset);
             this.startRound();
         }
+    }
+
+    pushDownCats() {
+        this.boardCats.forEach(cat => {
+            cat.shiftDown(this.ctx);
+        });
     }
 
 

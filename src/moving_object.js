@@ -120,7 +120,10 @@ class MovingObject {
 
     move(ctx, id) {
         this.vel.x = 0;
-        this.vel.y = 10;
+        if (this.vel.y === 0){
+            this.vel.y = 10;
+        }
+
         // ctx.clearRect(this.pos.x, this.pos.y, this.width, this.height); // clear previous 
         // Calculate drag force
         let Fd = -0.5 * this.area * this.vel.y * this.vel.y;
@@ -135,7 +138,7 @@ class MovingObject {
         // console.log("vel.y", this.vel.y);
         
         // Integrate to get position
-        this.pos.y += this.vel.y * frameRate * 100; // why is this 100?
+        this.pos.y += this.vel.y * frameRate * 100; // why is this 100? check collision before moving
         // console.log("pos.y", this.pos.y);
 
         // handle collisions
@@ -150,8 +153,15 @@ class MovingObject {
         // }
     }
 
-    shiftDown(){
+    shiftDown(ctx){
+        //let id = requestAnimationFrame(() => (this.shiftDown(ctx)));
+        ctx.beginPath();
+        ctx.fillStyle = "rgba(0, 0, 0, 0)";
+        ctx.rect(scoreWidth, this.pos.y, 800 - (scoreWidth * 2), this.height); 
+        ctx.closePath();
+        ctx.clearRect(scoreWidth, this.pos.y, 800 - (2 * scoreWidth), this.height); 
         this.pos.y += this.height;
+        this.draw(ctx); // render at new position
     }
 
     // handle collisions
