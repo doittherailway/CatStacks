@@ -12,10 +12,10 @@ img.src = '../images/cat.png';
 const imgFlip = new Image();
 imgFlip.src = '../images/cat_flip.png';
 
-const scoreWidth = 50;
+const scoreWidth = 70;
 
 class MovingObject {
-    constructor(prevCat) {
+    constructor(prevCat, canvasWidth, canvasHeight) {
         this.pos = {x: 350, y: 30};
         this.vel = {x: 7, y: 0};
         this.width = 80;
@@ -27,6 +27,8 @@ class MovingObject {
 
         this.prevCat = prevCat;
         this.movingX = true;
+        this.canvasWidth = canvasWidth;
+        this.canvasHeight = canvasHeight;
 
         this.onStack = true;
         this.img = img;
@@ -49,12 +51,12 @@ class MovingObject {
 
     handleCollision(id, ctx) {
         if (this.prevCat === undefined) {  // if there is no previous cat
-            if (this.pos.y >= 800 - this.height || this.pos.y >= this.prevCat) {
+            if (this.pos.y >= this.canvasHeight - this.height || this.pos.y >= this.prevCat) {
                 this.vel.y = 0;
                 cancelAnimationFrame(id);
             }
         } else if (!this.onStack) {
-            if (this.pos.y >= 800) {
+            if (this.pos.y >= this.canvasHeight) {
                 this.vel.y = 0;
                 cancelAnimationFrame(id);
             }
@@ -88,7 +90,7 @@ class MovingObject {
 
     toppleOff(ctx) {
         let id = requestAnimationFrame(() => (this.toppleOff(ctx)));
-        ctx.clearRect(scoreWidth, 0, 800 - (2 * scoreWidth), 800);
+        ctx.clearRect(scoreWidth, 0, this.canvasWidth - (2 * scoreWidth), this.canvasHeight);
         ctx.drawImage(imgFlip, this.pos.x, this.pos.y, this.width, this.height);
         this.img = imgFlip;
         // this.vel.y = 0;
@@ -103,14 +105,14 @@ class MovingObject {
             // ctx.clearRect(0, 0 - translateOffset, 800, this.height + 30);
             ctx.beginPath();
             ctx.fillStyle = "rgba(0, 0, 0, 0)";
-            ctx.rect(scoreWidth, 0 - translateOffset, 800 - (scoreWidth*2), this.height + 30 + translateOffset);
+            ctx.rect(scoreWidth, 0 - translateOffset, this.canvasWidth - (scoreWidth*2), this.height + 30 + translateOffset);
             ctx.closePath();
-            ctx.clearRect(scoreWidth, 0 - translateOffset, 800 - (scoreWidth * 2), this.height + 30 + translateOffset);
+            ctx.clearRect(scoreWidth, 0 - translateOffset, this.canvasWidth - (scoreWidth * 2), this.height + 30 + translateOffset);
             // if (translateOffset !== 0) {this.pos.y -= 80;}
             // console.log(this.pos.y);
             this.draw(ctx);
             this.pos.x += this.vel.x;
-            if (this.pos.x + this.vel.x > 800 - this.width - scoreWidth|| this.pos.x + this.vel.x < 0 + scoreWidth){
+            if (this.pos.x + this.vel.x > this.canvasWidth - this.width - scoreWidth|| this.pos.x + this.vel.x < 0 + scoreWidth){
                 this.vel.x = -this.vel.x;
             }
         } else {
@@ -146,9 +148,9 @@ class MovingObject {
         // if (this.onStack){
         ctx.beginPath();
         ctx.fillStyle = "rgba(0, 0, 0, 0)";
-        ctx.rect(scoreWidth, 0, 800 - (scoreWidth * 2), 800);
+        ctx.rect(scoreWidth, 0, this.canvasWidth - (scoreWidth * 2), this.canvasHeight);
         ctx.closePath();
-        ctx.clearRect(scoreWidth, 0,800 - (2 *scoreWidth), 800);
+        ctx.clearRect(scoreWidth, 0,this.canvasWidth - (2 *scoreWidth), this.canvasHeight);
         this.draw(ctx); // render at new position
         // }
     }
@@ -157,9 +159,9 @@ class MovingObject {
         //let id = requestAnimationFrame(() => (this.shiftDown(ctx)));
         ctx.beginPath();
         ctx.fillStyle = "rgba(0, 0, 0, 0)";
-        ctx.rect(scoreWidth, this.pos.y, 800 - (scoreWidth * 2), this.height); 
+        ctx.rect(scoreWidth, this.pos.y, this.canvasWidth - (scoreWidth * 2), this.height); 
         ctx.closePath();
-        ctx.clearRect(scoreWidth, this.pos.y, 800 - (2 * scoreWidth), this.height); 
+        ctx.clearRect(scoreWidth, this.pos.y, this.canvasWidth - (2 * scoreWidth), this.height); 
         this.pos.y += this.height;
         this.draw(ctx); // render at new position
     }

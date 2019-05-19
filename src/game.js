@@ -1,46 +1,69 @@
 const MovingObject = require('./moving_object');
-const scoreWidth = 50;
+const ScoreBoard = require('./scoreboard');
+const scoreWidth = 70;
+const paws = new Image();
+paws.src = '../images/catpaws.png';
+const cat = new Image();
+cat.src = '../images/cat.png';
 
 class Game {
-    constructor(ctx) {
+    constructor(ctx, canvasWidth, canvasHeight) {
         this.ctx = ctx;
-        this.cats = [];  //   this.cats = [new MovingObject(800)];
+        this.cats = [];  
         this.gameCats = [];
+        this.gameinProgress = false;
         this.roundinProgress = false;
         this.gameOver = false;
         this.translateOffset = 0;
         this.prevCatDidTopple = false;
         this.lives = 3;
+        this.canvasWidth = canvasWidth;
+        this.canvasHeight = canvasHeight;
+        this.scoreBoard = new ScoreBoard(this.ctx, this.canvasWidth, this.canvasHeight);
 
         this.startRound = this.startRound.bind(this);
         this.stepRound = this.stepRound.bind(this);
         this.addCat = this.addCat.bind(this);
     }
 
+    startMenu(){
+        this.ctx.beginPath();
+        // this.ctx.fillStyle = "#907ad6";
+        // this.ctx.fillRect(0, 0, this.canvasWidth, this.canvasHeight);
+        this.ctx.fillStyle = "#ff8811";
+        this.ctx.fillRect (this.canvasWidth / 2 - 150, this.canvasHeight / 2 - 100, 300, 100);
+        this.ctx.fillStyle = "#25283D";
+        this.ctx.font = '16px Roboto, sans-serif';
+        this.ctx.fillText("click anywhere to", this.canvasWidth / 2 - 65, this.canvasHeight / 2 - 65, 200);
+        this.ctx.font = '40px Roboto, sans-serif';
+        this.ctx.fillText("Start Game", this.canvasWidth / 2 - 100, this.canvasHeight / 2 - 30, 200);
+        this.ctx.drawImage(cat, this.canvasWidth / 2 - 50, this.canvasHeight / 2  - 210, 100, 100);
+        this.ctx.closePath();
+        if (this.gameinProgress === false) {
+            window.addEventListener('click', (e) => {
+                // look at keyCode property of event object: var key = String.fromCharCode(event.which);
+                if (e.preventDefaulted) {
+                    return;  // do nothing if event is already being processed
+                }
+                e.preventDefault();
+                if (this.gameinProgress === false) {   // remove event listener
+
+                    this.ctx.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
+                    this.gameinProgress = true;
+                    this.startGame();
+                }
+            });
+        }
+    }
+
     addCat(prevCat) {
-        this.cats.push(new MovingObject(prevCat));
+        this.cats.push(new MovingObject(prevCat, this.canvasWidth, this.canvasHeight));
         // this.boardCats.push(this.cats.slice(this.cats.length - 1)[0]);
         return this.cats.slice(this.cats.length - 1)[0];
     }
 
     renderScoreboard(){
-        let highScore = "Score: " + this.cats.length;
-        let livesLeft = "Lives: " + this.lives;
-        this.ctx.beginPath();
-        this.ctx.fillStyle = "rgba(0, 0, 0, 0)";
-
-        this.ctx.rect(0, 0, 800, 130);
-        this.ctx.closePath();
-        this.ctx.clearRect(0, 0, 800, 130);
-
-        this.ctx.beginPath();
-        this.ctx.fillStyle ="#000000";
-        this.ctx.font = '12px serif';
-        this.ctx.fillText(highScore, 5, 50, 50);
-        this.ctx.fillText(livesLeft, 750, 50, 50);
-        this.ctx.stroke();
-        this.ctx.closePath();
-
+        this.scoreBoard.render(this.lives, this.cats.length);
     }
 
     startGame(){
@@ -48,8 +71,6 @@ class Game {
     }
 
     startRound() {
-        console.log("High Score:", this.cats.length);
-        console.log("Lives:", this.lives);
         // if (this.cats.length >= 4) {
             //     this.translateOffset += 80;
             //     this.ctx.translate(0, this.translateOffset);

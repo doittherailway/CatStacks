@@ -2,14 +2,20 @@
 const MovingObject = require('./moving_object');
 const frameDelay = (1/40) * 1000; // ms, 1/40 is framerate from movingobject
 const Game = require('./game');
+module.exports = Object.freeze({
+    canvasWidth: 50
+});
 
 document.addEventListener("DOMContentLoaded", () => {
     const canvas = document.getElementById('game-canvas');
+
+    canvas.width = 800;
+    canvas.height = 600;
     const c = canvas.getContext('2d');
-
-    const game = new Game(c);
-    game.startGame();
-
+    
+    const game = new Game(c, canvas.width, canvas.height);
+    window.setTimeout(() => (game.startMenu()), 100);
+    
     // const topCat = new MovingObject(800);
     // topCat.topMove(c);
     

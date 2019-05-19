@@ -1,4 +1,68 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    background-color: #dabfff;
+}
+
+.top-banner {
+    width: 100%;
+    /* background-color: #46b1c9; */
+    /* background-color: #97e6f4; */
+      /* background: #86C4F8; */
+      background-color: #9CD0F9;
+    /* color: #907ad6; */
+    /* color: #46b1c9; */
+    color: #25283D;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 800px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    box-shadow: 0px 1px 1px 0px rgba(0,0,0,0.1)
+}
+
+.top-banner div {
+    font-size: 32px;
+}
+
+.top-invis {
+    margin-right: 280px;
+}
+
+.info-div {
+    margin-left:  280px;
+}
+
+.canvas-outer {
+    background-color: #dabfff;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+}
+
+.canvas-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-width: 800px;
+    min-width: 800px;
+    padding: 10px;
+    
+    background-color: #907ad6;
+    box-shadow: 0px 1px 1px 0px rgba(0,0,0,0.1)
+    /* background-color: #dabfff; */
+}
+
 canvas {
-    background: #afceff;
+    /* background: #afceff; */
+    /* background-color: #97e6f4; */
+    /* background-image: url('../images/cloudbg.gif'); */
+    background-image: url('../images/cloud-bg.png');
+    background-size: cover;
     outline: none;
+    max-width: 800px;
+    min-width: 800px;
 }
