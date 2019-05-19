@@ -31,13 +31,13 @@ class Game {
         // this.ctx.fillStyle = "#907ad6";
         // this.ctx.fillRect(0, 0, this.canvasWidth, this.canvasHeight);
         this.ctx.fillStyle = "#ff8811";
-        this.ctx.fillRect (this.canvasWidth / 2 - 150, this.canvasHeight / 2 - 100, 300, 100);
+        this.ctx.fillRect (this.canvasWidth / 2 - 150, this.canvasHeight / 2 - 20, 300, 100);
         this.ctx.fillStyle = "#25283D";
         this.ctx.font = '16px Roboto, sans-serif';
-        this.ctx.fillText("click anywhere to", this.canvasWidth / 2 - 65, this.canvasHeight / 2 - 65, 200);
+        this.ctx.fillText("click anywhere to", this.canvasWidth / 2 - 65, this.canvasHeight / 2 + 10, 200);
         this.ctx.font = '40px Roboto, sans-serif';
-        this.ctx.fillText("Start Game", this.canvasWidth / 2 - 100, this.canvasHeight / 2 - 30, 200);
-        this.ctx.drawImage(cat, this.canvasWidth / 2 - 50, this.canvasHeight / 2  - 210, 100, 100);
+        this.ctx.fillText("Start Game", this.canvasWidth / 2 - 100, this.canvasHeight / 2 + 50, 200);
+        this.ctx.drawImage(cat, this.canvasWidth / 2 - 50, this.canvasHeight / 2  - 130, 100, 100);
         this.ctx.closePath();
         if (this.gameinProgress === false) {
             window.addEventListener('click', (e) => {
