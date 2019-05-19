@@ -12,6 +12,8 @@ img.src = '../images/cat.png';
 const imgFlip = new Image();
 imgFlip.src = '../images/cat_flip.png';
 
+const scoreWidth = 50;
+
 class MovingObject {
     constructor(prevCat) {
         this.pos = {x: 350, y: 30};
@@ -32,11 +34,15 @@ class MovingObject {
         this.topMove = this.topMove.bind(this);
         this.draw = this.draw.bind(this);
         this.toppleOff = this.toppleOff.bind(this);
+        this.shiftDown = this.shiftDown.bind(this)
         
     }
 
     draw(ctx) {
-
+        ctx.beginPath();
+        ctx.fillStyle = "rgba(0, 0, 0, 0)";
+        ctx.rect(this.pos.x, this.pos.y, this.width, this.height);
+        ctx.closePath();
         ctx.fillStyle = this.color;
         ctx.drawImage(this.img, this.pos.x, this.pos.y, this.width, this.height);
     }
@@ -82,7 +88,7 @@ class MovingObject {
 
     toppleOff(ctx) {
         let id = requestAnimationFrame(() => (this.toppleOff(ctx)));
-        ctx.clearRect(0, 0, 800, 800);
+        ctx.clearRect(scoreWidth, 0, 800 - (2 * scoreWidth), 800);
         ctx.drawImage(imgFlip, this.pos.x, this.pos.y, this.width, this.height);
         this.img = imgFlip;
         // this.vel.y = 0;
@@ -94,11 +100,17 @@ class MovingObject {
         let id = requestAnimationFrame(() => (this.topMove(ctx, translateOffset)));
         // this.pos.y += translateOffset;
         if (this.movingX) {
-            ctx.clearRect(0, 0, 800, this.height + 30 + translateOffset);
-            if (translateOffset !== 0) {this.pos.y -= 80;}
+            // ctx.clearRect(0, 0 - translateOffset, 800, this.height + 30);
+            ctx.beginPath();
+            ctx.fillStyle = "rgba(0, 0, 0, 0)";
+            ctx.rect(scoreWidth, 0 - translateOffset, 800 - (scoreWidth*2), this.height + 30 + translateOffset);
+            ctx.closePath();
+            ctx.clearRect(scoreWidth, 0 - translateOffset, 800 - (scoreWidth * 2), this.height + 30 + translateOffset);
+            // if (translateOffset !== 0) {this.pos.y -= 80;}
+            // console.log(this.pos.y);
             this.draw(ctx);
             this.pos.x += this.vel.x;
-            if (this.pos.x + this.vel.x > 800 - this.width || this.pos.x + this.vel.x < 0){
+            if (this.pos.x + this.vel.x > 800 - this.width - scoreWidth|| this.pos.x + this.vel.x < 0 + scoreWidth){
                 this.vel.x = -this.vel.x;
             }
         } else {
@@ -129,9 +141,17 @@ class MovingObject {
         // handle collisions
         this.handleCollision(id, ctx);
         // if (this.onStack){
-        ctx.clearRect(0, 0,800, 800);
+        ctx.beginPath();
+        ctx.fillStyle = "rgba(0, 0, 0, 0)";
+        ctx.rect(scoreWidth, 0, 800 - (scoreWidth * 2), 800);
+        ctx.closePath();
+        ctx.clearRect(scoreWidth, 0,800 - (2 *scoreWidth), 800);
         this.draw(ctx); // render at new position
         // }
+    }
+
+    shiftDown(){
+        this.pos.y += this.height;
     }
 
     // handle collisions
