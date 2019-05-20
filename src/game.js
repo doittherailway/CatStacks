@@ -1,10 +1,10 @@
 const MovingObject = require('./moving_object');
 const ScoreBoard = require('./scoreboard');
 const scoreWidth = 70;
-const paws = new Image();
-paws.src = '../images/catpaws.png';
 const cat = new Image();
 cat.src = '../images/cat.png';
+const sadCat = new Image();
+sadCat.src = '../images/cat_sad.png';
 
 class Game {
     constructor(ctx, canvasWidth, canvasHeight) {
@@ -28,8 +28,6 @@ class Game {
 
     startMenu(){
         this.ctx.beginPath();
-        // this.ctx.fillStyle = "#907ad6";
-        // this.ctx.fillRect(0, 0, this.canvasWidth, this.canvasHeight);
         this.ctx.fillStyle = "#ff8811";
         this.ctx.fillRect (this.canvasWidth / 2 - 150, this.canvasHeight / 2 - 20, 300, 100);
         this.ctx.fillStyle = "#25283D";
@@ -58,7 +56,6 @@ class Game {
 
     addCat(prevCat) {
         this.cats.push(new MovingObject(prevCat, this.canvasWidth, this.canvasHeight));
-        // this.boardCats.push(this.cats.slice(this.cats.length - 1)[0]);
         return this.cats.slice(this.cats.length - 1)[0];
     }
 
@@ -71,48 +68,21 @@ class Game {
     }
 
     startRound() {
-        // if (this.cats.length >= 4) {
-            //     this.translateOffset += 80;
-            //     this.ctx.translate(0, this.translateOffset);
-            // }
         this.renderScoreboard();
-
-            this.boardCats = this.cats;
+        this.boardCats = this.cats;
             
-            if (this.cats.length >= 4 && this.prevCatDidTopple === false) {
-                this.boardCats = this.cats.slice(this.cats.length-4, this.cats.length); /////
-                // console.log(this.boardCats);
-                this.pushDownCats();
+        if (this.cats.length >= 4 && this.prevCatDidTopple === false) {
+            this.boardCats = this.cats.slice(this.cats.length-4, this.cats.length);
+            this.pushDownCats();
+        }
 
-
-
-                // this.ctx.save();
-                // this.translateOffset += 80;
-                // console.log(this.translateOffset);
-                // newCat.pos.y -= this.translateOffset;
-                // this.ctx.translate(0, -this.translateOffset);
-                // this.ctx.clearRect(scoreWidth, 0, 800 - scoreWidth, 800); // not working //
-                // this.cats.slice(0, this.cats.length - 1).forEach(cat => {   // redraw previous cats (maybe only 3-4 latest)
-                //     cat.pos.y += 80;
-                //     cat.draw(this.ctx);
-                // });
-                // this.ctx.restore();
-                // console.log(this.cats);
-                // debugger;
-
-                // this.boardCats.forEach(cat => {   // redraw previous cats (maybe only 3-4 latest)
-                //     cat.shiftDown();
-                //     console.log(cat.pos.y);
-                //     cat.draw(this.ctx);
-                // }); // this is not working, cats are not shifting their positions
-            }
-            let lastCat = this.cats.slice(this.cats.length - 1)[0]; 
+        let lastCat = this.cats.slice(this.cats.length - 1)[0];    
+        let newCat = this.addCat(lastCat);
             
-            let newCat = this.addCat(lastCat);
-            
-
         if (!this.gameOver) {
             newCat.topMove(this.ctx, this.translateOffset);
+        } else {
+            this.gameOverDisplay();
         }
 
         window.addEventListener('keydown', (e) => { 
@@ -124,7 +94,6 @@ class Game {
                 this.stepRound();
             }
             e.preventDefault();
-            
         });
     }
 
@@ -142,10 +111,7 @@ class Game {
 
         if (currentCat.vel.y === 0) {                          // if the current Cat stops moving
             // const prevHeight = (currentCat.pos.y - 80);       //find out it's end y position for collisions
-            // console.log("prevheight", prevHeight);
             // this.addCat(prevHeight).topMove(this.ctx);                           // create a new cat on end of cats array
-
-            // console.log(newCat.pos.y);
             if (!currentCat.onStack) {
                 this.cats.pop();
                 this.prevCatDidTopple = true;
@@ -154,7 +120,6 @@ class Game {
                 this.prevCatDidTopple = false;
             }
             this.roundinProgress = false;
-            
             if (this.lives === 0) {
                 this.gameOver = true;
             }
@@ -169,14 +134,19 @@ class Game {
         });
     }
 
-
-    // drop first cat
-    // hits ground
-    // wait
-    // drop next cat
-    // stops when hits prev cat (also eventually ground)
-    // game 'scrolls up'
-    // drop next cat etc
+    gameOverDisplay() {
+        this.ctx.beginPath();
+        this.ctx.fillStyle = "#ff8811";
+        this.ctx.fillRect(this.canvasWidth / 2 - 150, this.canvasHeight / 2 - 20, 300, 100);
+        this.ctx.fillStyle = "#25283D";
+        this.ctx.font = '40px Roboto, sans-serif';
+        this.ctx.fillText("GAME OVER", this.canvasWidth / 2 - 100, this.canvasHeight / 2 + 20, 200);
+        this.ctx.font = '20px Roboto, sans-serif';
+        this.ctx.fillText("Your Final Score", this.canvasWidth / 2 - 80, this.canvasHeight / 2 + 45, 200);
+        this.ctx.fillText(this.cats.length, this.canvasWidth / 2 - 5, this.canvasHeight / 2 + 70, 200);
+        this.ctx.drawImage(sadCat, this.canvasWidth / 2 - 50, this.canvasHeight / 2 - 130, 100, 100);
+        this.ctx.closePath();
+    }
 }
 
 module.exports = Game;

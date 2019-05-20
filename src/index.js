@@ -1,5 +1,3 @@
-
-const MovingObject = require('./moving_object');
 const frameDelay = (1/40) * 1000; // ms, 1/40 is framerate from movingobject
 const Game = require('./game');
 module.exports = Object.freeze({
