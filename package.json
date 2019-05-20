@@ -8,8 +8,7 @@
     "private": true,
     "scripts": {
         "start": "webpack --watch --mode=development",
-        "heroku-prebuild": "npm install --dev",
-        "postinstall": "npm run build"
+        "heroku-prebuild": "npm install --dev"
     },
     "keywords": [],
     "author": "doittherailway",
@@ -18,5 +17,8 @@
         "webpack": "^4.31.0",
         "webpack-cli": "^3.1.2"
     },
-    "dependencies": {}
+    "dependencies": {
+        "webpack": "^4.31.0",
+        "webpack-cli": "^3.1.2"
+    }
 }
