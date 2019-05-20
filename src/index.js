@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const c = canvas.getContext('2d');
     
     const game = new Game(c, canvas.width, canvas.height);
-    window.setTimeout(() => (game.startMenu()), 100);
+    window.setTimeout(() => (game.startMenu()), 200);
     
     // const topCat = new MovingObject(800);
     // topCat.topMove(c);
