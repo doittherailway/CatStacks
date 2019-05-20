@@ -9,8 +9,6 @@ class Scoreboard {
         this.scoreboardWidth = 70;
         this.fishSize = 60;
         this.img = fish;
-        // this.lives = lives;
-        // this.score = score;
     }
 
     render(lives, score){
@@ -34,12 +32,6 @@ class Scoreboard {
     renderFish(number){
         switch(number) {
             case 1:
-                // this.ctx.beginPath();
-                // this.ctx.fillStyle = "rgba(0, 0, 0, 0)";
-                // this.ctx.rect(750, 50, 40, 40);
-                // this.ctx.closePath();
-                // this.ct
-                // this.ctx.fillStyle = this.color;
                 this.ctx.drawImage(this.img, this.canvasWidth - this.scoreboardWidth, 35, this.fishSize, this.fishSize);
                 break;
             case 2:
@@ -55,12 +47,6 @@ class Scoreboard {
                 break;
         }
     }
-    // ctx.beginPath();
-    // ctx.fillStyle = "rgba(0, 0, 0, 0)";
-    // ctx.rect(this.pos.x, this.pos.y, this.width, this.height);
-    // ctx.closePath();
-    // ctx.fillStyle = this.color;
-    // ctx.drawImage(this.img, this.pos.x, this.pos.y, this.width, this.height);
 }
 
 module.exports = Scoreboard;

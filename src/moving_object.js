@@ -80,10 +80,8 @@ class MovingObject {
     checkTopple() {
         let halfCatPosX = this.pos.x + (this.width / 2);
         if (halfCatPosX < this.prevCat.pos.x) {
-            console.log("Fall off left");
             this.onStack = false;
         } else if (halfCatPosX > (this.prevCat.pos.x + this.prevCat.width)) {
-            console.log("Fall off right");
             this.onStack = false;
         }
     }
@@ -100,16 +98,12 @@ class MovingObject {
 
     topMove(ctx, translateOffset) {
         let id = requestAnimationFrame(() => (this.topMove(ctx, translateOffset)));
-        // this.pos.y += translateOffset;
         if (this.movingX) {
-            // ctx.clearRect(0, 0 - translateOffset, 800, this.height + 30);
             ctx.beginPath();
             ctx.fillStyle = "rgba(0, 0, 0, 0)";
             ctx.rect(scoreWidth, 0 - translateOffset, this.canvasWidth - (scoreWidth*2), this.height + 30 + translateOffset);
             ctx.closePath();
             ctx.clearRect(scoreWidth, 0 - translateOffset, this.canvasWidth - (scoreWidth * 2), this.height + 30 + translateOffset);
-            // if (translateOffset !== 0) {this.pos.y -= 80;}
-            // console.log(this.pos.y);
             this.draw(ctx);
             this.pos.x += this.vel.x;
             if (this.pos.x + this.vel.x > this.canvasWidth - this.width - scoreWidth|| this.pos.x + this.vel.x < 0 + scoreWidth){
@@ -125,38 +119,30 @@ class MovingObject {
         if (this.vel.y === 0){
             this.vel.y = 10;
         }
-
         // ctx.clearRect(this.pos.x, this.pos.y, this.width, this.height); // clear previous 
         // Calculate drag force
         let Fd = -0.5 * this.area * this.vel.y * this.vel.y;
         // Force in the y direction (ignoring x for now)
         let Fy = Fd * this.vel.y / Math.abs(this.vel.y);
-        // console.log("Fy", Fy);
         
         // Calculate y direction acceleration (F = ma), assuming mass of 1
         let ay = ag + (Fy / this.mass);
         // Integrate to get y direction velocity
         this.vel.y += ay * frameRate;
-        // console.log("vel.y", this.vel.y);
         
         // Integrate to get position
         this.pos.y += this.vel.y * frameRate * 100; // why is this 100? check collision before moving
-        // console.log("pos.y", this.pos.y);
 
-        // handle collisions
         this.handleCollision(id, ctx);
-        // if (this.onStack){
         ctx.beginPath();
         ctx.fillStyle = "rgba(0, 0, 0, 0)";
         ctx.rect(scoreWidth, 0, this.canvasWidth - (scoreWidth * 2), this.canvasHeight);
         ctx.closePath();
         ctx.clearRect(scoreWidth, 0,this.canvasWidth - (2 *scoreWidth), this.canvasHeight);
         this.draw(ctx); // render at new position
-        // }
     }
 
     shiftDown(ctx){
-        // let id = requestAnimationFrame(() => (this.shiftDown(ctx)));
        this.shiftDownAnim(ctx, this.pos.y + 80);
     }
 

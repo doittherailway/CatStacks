@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
     canvas.height = 600;
     const c = canvas.getContext('2d');
     
-    const game = new Game(c, canvas.width, canvas.height);
+    const game = new Game(c, canvas.width, canvas.height, canvas);
     window.setTimeout(() => (game.startMenu()), 200);
     
     // const topCat = new MovingObject(800);

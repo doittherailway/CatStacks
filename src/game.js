@@ -7,8 +7,9 @@ const sadCat = new Image();
 sadCat.src = 'https://i.imgur.com/9MoS3lG.png';
 
 class Game {
-    constructor(ctx, canvasWidth, canvasHeight) {
+    constructor(ctx, canvasWidth, canvasHeight, canvas) {
         this.ctx = ctx;
+        this.canvas = canvas;
         this.cats = [];  
         this.gameCats = [];
         this.gameinProgress = false;
@@ -38,14 +39,13 @@ class Game {
         this.ctx.drawImage(cat, this.canvasWidth / 2 - 50, this.canvasHeight / 2  - 130, 100, 100);
         this.ctx.closePath();
         if (this.gameinProgress === false) {
-            window.addEventListener('click', (e) => {
+            this.canvas.addEventListener('click', (e) => {
                 // look at keyCode property of event object: var key = String.fromCharCode(event.which);
                 if (e.preventDefaulted) {
                     return;  // do nothing if event is already being processed
                 }
                 e.preventDefault();
                 if (this.gameinProgress === false) {   // remove event listener
-
                     this.ctx.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
                     this.gameinProgress = true;
                     this.startGame();
@@ -123,7 +123,6 @@ class Game {
             if (this.lives === 0) {
                 this.gameOver = true;
             }
-            // newCat.topMove(this.ctx, this.translateOffset);
             this.startRound();
         }
     }
@@ -142,10 +141,12 @@ class Game {
         this.ctx.font = '40px Roboto, sans-serif';
         this.ctx.fillText("GAME OVER", this.canvasWidth / 2 - 100, this.canvasHeight / 2 + 20, 200);
         this.ctx.font = '20px Roboto, sans-serif';
-        this.ctx.fillText("Your Final Score", this.canvasWidth / 2 - 80, this.canvasHeight / 2 + 45, 200);
+        this.ctx.fillText("Your Final Score", this.canvasWidth / 2 - 60, this.canvasHeight / 2 + 45, 200);
         this.ctx.fillText(this.cats.length - 1, this.canvasWidth / 2 - 5, this.canvasHeight / 2 + 70, 200);
         this.ctx.drawImage(sadCat, this.canvasWidth / 2 - 50, this.canvasHeight / 2 - 130, 100, 100);
         this.ctx.closePath();
+        
+        // window.setTimeout(() => (location.reload()), 5000);
     }
 }
 
