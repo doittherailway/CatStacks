@@ -1,20 +1,22 @@
 {
     "name": "catstacks",
-    "version": "10.13.0",
+    "version": "1.0.0",
     "engines": {
-        "npm": "6.4.1"
+        "npm": "6.4.1",
+        "node": "10.13.0"
     },
     "description": "",
     "private": true,
     "scripts": {
-        "start": "webpack --watch --mode=development"
+        "start": "webpack --watch --mode=development",
+        "postinstall": "webpack"
     },
     "keywords": [],
     "author": "doittherailway",
     "license": "ISC",
     "devDependencies": {
         "webpack": "^4.31.0",
-        "webpack-cli": "^3.1.2"
+        "webpack-cli": "^3.3.1"
     },
     "dependencies": {
         "webpack": "^4.31.0",
