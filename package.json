@@ -8,7 +8,6 @@
     "description": "",
     "private": true,
     "scripts": {
-        "start": "webpack --watch --mode=development",
         "postinstall": "webpack"
     },
     "keywords": [],
