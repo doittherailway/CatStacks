@@ -1,5 +1,5 @@
 const fish = new Image();
-fish.src = '../images/OrangeFish.png';
+fish.src = 'https://i.imgur.com/D1JnPpu.png';
 
 class Scoreboard {
     constructor(ctx, canvasWidth, canvasHeight) {

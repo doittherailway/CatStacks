@@ -7,10 +7,10 @@ const frameDelay = frameRate * 1000; // ms
 
 const img = new Image();
 // img.onload = someFunctionToCallWhenTheImageHasLoaded;
-img.src = '../images/cat.png';
+img.src = 'https://i.imgur.com/qIlRKSS.png';
 
 const imgFlip = new Image();
-imgFlip.src = '../images/cat_flip.png';
+imgFlip.src = 'https://i.imgur.com/GdvQmR7.png';
 
 const scoreWidth = 70;
 

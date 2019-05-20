@@ -2,9 +2,9 @@ const MovingObject = require('./moving_object');
 const ScoreBoard = require('./scoreboard');
 const scoreWidth = 70;
 const cat = new Image();
-cat.src = '../images/cat.png';
+cat.src = 'https://i.imgur.com/qIlRKSS.png';
 const sadCat = new Image();
-sadCat.src = '../images/cat_sad.png';
+sadCat.src = 'https://i.imgur.com/9MoS3lG.png';
 
 class Game {
     constructor(ctx, canvasWidth, canvasHeight) {
