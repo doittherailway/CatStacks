@@ -119,20 +119,19 @@ class MovingObject {
         if (this.vel.y === 0){
             this.vel.y = 10;
         }
-        // ctx.clearRect(this.pos.x, this.pos.y, this.width, this.height); // clear previous 
-        // Calculate drag force
+        // Calculate cat drag force
         let Fd = -0.5 * this.area * this.vel.y * this.vel.y;
-        // Force in the y direction (ignoring x for now)
+        // Calculate force in the y direction (ignoring x for simplicity)
         let Fy = Fd * this.vel.y / Math.abs(this.vel.y);
         
-        // Calculate y direction acceleration (F = ma), assuming mass of 1
+        // Calculate y direction acceleration using F = ma, assuming mass of 1
         let ay = ag + (Fy / this.mass);
-        // Integrate to get y direction velocity
+        // Integrate ay to get y velocity
         this.vel.y += ay * frameRate;
+        // Integrate again to get position
+        this.pos.y += this.vel.y * frameRate * 100; // Using 100 for now. Check collision before moving
         
-        // Integrate to get position
-        this.pos.y += this.vel.y * frameRate * 100; // why is this 100? check collision before moving
-
+        // https://burakkanber.com/blog/modeling-physics-javascript-gravity-and-drag/
         this.handleCollision(id, ctx);
         ctx.beginPath();
         ctx.fillStyle = "rgba(0, 0, 0, 0)";

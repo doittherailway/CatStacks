@@ -2,32 +2,38 @@
 
 Cat Stacks is a browser based game where you attempt to stack cats on top of each other, without the top cat toppling off the stack.
 
-## MVP List
+Play [CatStacks](http://catstacks.herokuapp.com)
 
-* Platform
-* Object to be dropped on platform
-* Physics to handle dropping
-* Physics of whether falls off
-* Button keybindings
-* Instructions on how to play
-
-Bonus:
-* Sound
-* Animation
-* Slingshot
-* Topple entire stack
-* Fill in shapes/multiple platforms
-* Change animal type
+![cat_game](https://i.imgur.com/tz1gdL9.gif)
 
 ## Architecture and Technologies
 
 * Javascript
-* Canvas
+* HTML5 Canvas
 
-## Timeline
+## Features
 
-* Day 0: Wireframes, planning, basic canvas rendering.
-* Day 1: Platform rendering, sprite object, begin physics for dropping. 
-* Day 2: Physics for object dropping, initial physics of collision/falloff. 
-* Day 3: Continue game logic, button keybindings, styling .
-* Day 4: Instructions, polish.
+### HTML5 Canvas Animation
+
+Using features of Canvas such as requestAnimationFrame (for optimized browser animation), the game and objects within are constantly being redrawn and re-rendered according to player input and simulated physics.
+
+### Cat Gravity
+
+The cats in the game are falling with simulated gravity calculated purely in Javascript, though some liberties had to be taken to make for a challenging yet engaging game. 
+
+## Future features
+
+* Increased speed as score gets higher to increase difficulty
+* Restart keybind (R)
+* Background music
+* Global leaderboard
+* Cat animation
+* Cat SFX
+
+
+## Art Credits
+
+Pixel Cat [Daniel Scofano](https://www.instagram.com/scofanogd/)
+Fish [Exciteszz](https://opengameart.org/users/exciteszz)
+Sky Background [Paulina Riva](https://www.patreon.com/paulinariva)
+Sad Pixel Cat modified by Sandi Rail
