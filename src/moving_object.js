@@ -156,14 +156,23 @@ class MovingObject {
     }
 
     shiftDown(ctx){
-        //let id = requestAnimationFrame(() => (this.shiftDown(ctx)));
-        ctx.beginPath();
-        ctx.fillStyle = "rgba(0, 0, 0, 0)";
-        ctx.rect(scoreWidth, this.pos.y, this.canvasWidth - (scoreWidth * 2), this.height); 
-        ctx.closePath();
-        ctx.clearRect(scoreWidth, this.pos.y, this.canvasWidth - (2 * scoreWidth), this.height); 
-        this.pos.y += this.height;
-        this.draw(ctx); // render at new position
+        // let id = requestAnimationFrame(() => (this.shiftDown(ctx)));
+       this.shiftDownAnim(ctx, this.pos.y + 80);
+    }
+
+    shiftDownAnim(ctx, endPosY){
+         let id = requestAnimationFrame(() => (this.shiftDownAnim(ctx, endPosY)));
+         if (this.pos.y !== endPosY) {
+            ctx.beginPath();
+            ctx.fillStyle = "rgba(0, 0, 0, 0)";
+            ctx.rect(scoreWidth, this.pos.y, this.canvasWidth - (scoreWidth * 2), this.height);
+            ctx.closePath();
+            ctx.clearRect(scoreWidth, this.pos.y, this.canvasWidth - (2 * scoreWidth), this.height);
+            this.pos.y += 10;
+            this.draw(ctx); // render at new position
+         } else {
+            cancelAnimationFrame(id); 
+         }
     }
 
     // handle collisions

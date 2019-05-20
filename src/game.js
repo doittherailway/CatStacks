@@ -143,7 +143,7 @@ class Game {
         this.ctx.fillText("GAME OVER", this.canvasWidth / 2 - 100, this.canvasHeight / 2 + 20, 200);
         this.ctx.font = '20px Roboto, sans-serif';
         this.ctx.fillText("Your Final Score", this.canvasWidth / 2 - 80, this.canvasHeight / 2 + 45, 200);
-        this.ctx.fillText(this.cats.length, this.canvasWidth / 2 - 5, this.canvasHeight / 2 + 70, 200);
+        this.ctx.fillText(this.cats.length - 1, this.canvasWidth / 2 - 5, this.canvasHeight / 2 + 70, 200);
         this.ctx.drawImage(sadCat, this.canvasWidth / 2 - 50, this.canvasHeight / 2 - 130, 100, 100);
         this.ctx.closePath();
     }
