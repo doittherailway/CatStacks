@@ -33,7 +33,7 @@ The cats in the game are falling with simulated gravity calculated purely in Jav
 
 ## Art Credits
 
-Pixel Cat [Daniel Scofano](https://www.instagram.com/scofanogd/)
-Fish [Exciteszz](https://opengameart.org/users/exciteszz)
-Sky Background [Paulina Riva](https://www.patreon.com/paulinariva)
-Sad Pixel Cat modified by Sandi Rail
+* Pixel Cat [Daniel Scofano](https://www.instagram.com/scofanogd/)
+* Fish [Exciteszz](https://opengameart.org/users/exciteszz)
+* Sky Background [Paulina Riva](https://www.patreon.com/paulinariva)
+* Sad Pixel Cat modified by Sandi Rail
