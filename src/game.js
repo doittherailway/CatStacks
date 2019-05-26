@@ -38,19 +38,19 @@ class Game {
         this.ctx.fillText("Start Game", this.canvasWidth / 2 - 100, this.canvasHeight / 2 + 50, 200);
         this.ctx.drawImage(cat, this.canvasWidth / 2 - 50, this.canvasHeight / 2  - 130, 100, 100);
         this.ctx.closePath();
+
+        const handleClick = (e) => {
+            if (e.defaultPrevented) {
+                return;
+            }
+            this.ctx.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
+            this.gameinProgress = true;
+            this.startGame();
+                    e.preventDefault();
+                    this.canvas.removeEventListener("click", handleClick, true);
+        };
         if (this.gameinProgress === false) {
-            this.canvas.addEventListener('click', (e) => {
-                // look at keyCode property of event object: var key = String.fromCharCode(event.which);
-                if (e.preventDefaulted) {
-                    return;  // do nothing if event is already being processed
-                }
-                e.preventDefault();
-                if (this.gameinProgress === false) {   // remove event listener
-                    this.ctx.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
-                    this.gameinProgress = true;
-                    this.startGame();
-                }
-            });
+            this.canvas.addEventListener("click", handleClick, true);
         }
     }
 
