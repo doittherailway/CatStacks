@@ -30,7 +30,7 @@ class Game {
     startMenu(){
         this.ctx.beginPath();
         this.ctx.fillStyle = "#ff8811";
-        this.ctx.fillRect (this.canvasWidth / 2 - 150, this.canvasHeight / 2 - 20, 300, 100);
+        this.ctx.fillRect (this.canvasWidth / 2 - 150, this.canvasHeight / 2 - 20, 300, 120);
         this.ctx.fillStyle = "#25283D";
         this.ctx.font = '16px Roboto, sans-serif';
         this.ctx.fillText("click anywhere to", this.canvasWidth / 2 - 65, this.canvasHeight / 2 + 10, 200);
@@ -136,15 +136,29 @@ class Game {
     gameOverDisplay() {
         this.ctx.beginPath();
         this.ctx.fillStyle = "#ff8811";
-        this.ctx.fillRect(this.canvasWidth / 2 - 150, this.canvasHeight / 2 - 20, 300, 100);
+        this.ctx.fillRect(this.canvasWidth / 2 - 150, this.canvasHeight / 2 - 20, 300, 120);
         this.ctx.fillStyle = "#25283D";
         this.ctx.font = '40px Roboto, sans-serif';
         this.ctx.fillText("GAME OVER", this.canvasWidth / 2 - 100, this.canvasHeight / 2 + 20, 200);
         this.ctx.font = '20px Roboto, sans-serif';
         this.ctx.fillText("Your Final Score", this.canvasWidth / 2 - 60, this.canvasHeight / 2 + 45, 200);
         this.ctx.fillText(this.cats.length - 1, this.canvasWidth / 2 - 5, this.canvasHeight / 2 + 70, 200);
+        this.ctx.font = '16px Roboto, sans-serif';
+        this.ctx.fillText('Press any key to restart', this.canvasWidth / 2 - 80, this.canvasHeight / 2 + 90, 200);
         this.ctx.drawImage(sadCat, this.canvasWidth / 2 - 50, this.canvasHeight / 2 - 130, 100, 100);
         this.ctx.closePath();
+        const handleRestart = (e) => {
+            if (e.defaultPrevented) {
+                return;
+            }
+            // switch (e.key) {
+            //     case 'Enter':
+                    this.startMenu();
+            // }
+            e.preventDefault();
+            this.window.removeEventListener("keydown", handleRestart, true);
+        };
+        window.addEventListener('keydown', handleRestart, true);
         
         // window.setTimeout(() => (location.reload()), 5000);
     }
