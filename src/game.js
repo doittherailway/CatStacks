@@ -27,6 +27,16 @@ class Game {
         this.addCat = this.addCat.bind(this);
     }
 
+    resetGame(){
+        this.gameOver = false;
+        this.gameInProgress = false;
+        this.cats = [];
+        this.gameCats = [];
+        this.roundinProgress = false;
+        this.prevCatDidTopple = false;
+        this.lives = 3;
+    }
+
     startMenu(){
         this.ctx.beginPath();
         this.ctx.fillStyle = "#ff8811";
@@ -44,14 +54,14 @@ class Game {
                 return;
             }
             this.ctx.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
-            this.gameinProgress = true;
+            this.resetGame();
             this.startGame();
-                    e.preventDefault();
-                    this.canvas.removeEventListener("click", handleClick, true);
+            e.preventDefault();
+            this.canvas.removeEventListener("click", handleClick, true);
         };
-        if (this.gameinProgress === false) {
+        // if (this.gameinProgress === false) {
             this.canvas.addEventListener("click", handleClick, true);
-        }
+        // }
     }
 
     addCat(prevCat) {
@@ -153,10 +163,10 @@ class Game {
             }
             // switch (e.key) {
             //     case 'Enter':
-                    this.startMenu();
-            // }
+            this.startMenu();
             e.preventDefault();
-            this.window.removeEventListener("keydown", handleRestart, true);
+            window.removeEventListener("keydown", handleRestart, true);
+            // }
         };
         window.addEventListener('keydown', handleRestart, true);
         
