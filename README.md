@@ -24,7 +24,6 @@ The cats in the game are falling with simulated gravity calculated purely in Jav
 ## Future features
 
 * Increased speed as score gets higher to increase difficulty
-* Restart keybind (R)
 * Background music
 * Global leaderboard
 * Cat animation
