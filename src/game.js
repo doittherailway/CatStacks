@@ -21,6 +21,7 @@ class Game {
         this.canvasWidth = canvasWidth;
         this.canvasHeight = canvasHeight;
         this.scoreBoard = new ScoreBoard(this.ctx, this.canvasWidth, this.canvasHeight);
+        this.topCatSpeedMultiplier = 1;
 
         this.startRound = this.startRound.bind(this);
         this.stepRound = this.stepRound.bind(this);
@@ -90,7 +91,10 @@ class Game {
         let newCat = this.addCat(lastCat);
             
         if (!this.gameOver) {
-            newCat.topMove(this.ctx, this.translateOffset);
+            if (this.cats.length % 5 === 0) {
+                this.topCatSpeedMultiplier *= 1.2;
+            }
+            newCat.topMove(this.ctx, this.translateOffset, this.topCatSpeedMultiplier);
         } else {
             this.gameOverDisplay();
         }

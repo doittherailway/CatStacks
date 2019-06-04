@@ -1,6 +1,6 @@
 # CatStacks
 
-Cat Stacks is a browser based game where you attempt to stack cats on top of each other, without the top cat toppling off the stack.
+Cat Stacks is a browser based game where the goal is to attempt to stack cats on top of each other, without the top cat toppling off the stack.
 
 Play [CatStacks](http://catstacks.herokuapp.com)
 
