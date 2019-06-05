@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="reset.css">
     <link rel="stylesheet" href="style.css">
     <script type="application/javascript" src="./main.js"></script>
-
 </head>
 <body>
     <div class="top-banner">
@@ -29,6 +28,17 @@
             <canvas id="game-canvas" tabindex="1000"></canvas> 
         </div>
     </div>
+    <section id="modal-section">
+        <div class="modal-top-bar">
+            <button onclick="document.getElementById('modal-section').style.display='none'">X</button>
+        </div>
+        <div>
+            <p>Welcome to CatStacks!</p>
+            <p>To play, press any key to drop a cat. </p>
+            <p>Once you've dropped the cat, it will freefall until it lands on the stack or off the edge!</p>
+            <p>Try to stack as many cats as you can before you run out of lives.</p>
+        </div>
+    </section>
     <footer>
         <a class="footer-link" href="https://github.com/doittherailway/CatStacks"></a>
     </footer>

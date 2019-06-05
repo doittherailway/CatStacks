@@ -71,6 +71,7 @@ body {
 /* Show the dropdown menu on hover */
 .info-dropdown:hover .dropdown-content {display: block;}
 
+
 .canvas-outer {
     background-color: #dabfff;
     display: flex;
@@ -120,4 +121,29 @@ footer {
     width: 40px;
     height: 40px;
     background-size: cover;
+}
+
+#modal-section {
+  position:fixed;
+  background: white;
+  z-index: 50;
+  width: 500px;
+  height: auto;
+  top:50%;
+  left:50%;
+  transform: translate(-50%,-50%);
+}
+.modal-display-on {
+  display: block;
+  z-index: 50;
+}
+.modal-display-none {
+  display: none;
+}
+.modal-top-bar {
+  background-color: black;
+  color: white;
+  display: flex;
+  padding: 10px;
+  justify-content: space-between;
 }
