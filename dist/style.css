@@ -132,6 +132,8 @@ footer {
   top:50%;
   left:50%;
   transform: translate(-50%,-50%);
+  box-shadow: 0px 1px 1px 0px rgba(0,0,0,0.1);
+  border: 3px solid #25283D;
 }
 .modal-display-on {
   display: block;
@@ -141,9 +143,18 @@ footer {
   display: none;
 }
 .modal-top-bar {
-  background-color: black;
+  background-color: #ff8811;
   color: white;
   display: flex;
-  padding: 10px;
-  justify-content: space-between;
+  padding: 5px;
+  padding-right:
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.modal-btn {
+    float: right;
+}
+.modal-text p {
+    padding: 10px;
 }
